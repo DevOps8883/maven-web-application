@@ -16,15 +16,15 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running unit tests...'
+                echo 'Running tests...'
                 sh 'mvn test'
             }
         }
 
         stage('Code Review') {
             steps {
-                echo 'Running static code analysis...'
-                sh 'mvn checkstyle:checkstyle'  // You can use SonarQube or other tools here
+                echo 'Running code quality checks...'
+                sh 'mvn checkstyle:check'
             }
         }
 
@@ -37,9 +37,6 @@ pipeline {
     }
 
     post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
         failure {
             echo 'Pipeline failed. Please check the logs.'
         }
