@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.8.6-openjdk-11' // or another Maven+JDK version
+            args '-v /root/.m2:/root/.m2'  // optional: caches Maven dependencies
+        }
+    }
 
     stages {
         stage('Compile') {
