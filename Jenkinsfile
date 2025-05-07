@@ -1,11 +1,12 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven 3.8.6' // Match the name from Global Tool Configuration
+    }
+
     stages {
         stage('Compile') {
-            agent {
-                docker { image 'maven:3.8.6-openjdk-11' }
-            }
             steps {
                 echo 'Compiling the code...'
                 sh 'mvn compile'
@@ -13,29 +14,20 @@ pipeline {
         }
 
         stage('Test') {
-            agent {
-                docker { image 'maven:3.8.6-openjdk-11' }
-            }
             steps {
-                echo 'Running tests...'
+                echo 'Running unit tests...'
                 sh 'mvn test'
             }
         }
 
         stage('Code Review') {
-            agent {
-                docker { image 'maven:3.8.6-openjdk-11' }
-            }
             steps {
-                echo 'Running code review checks...'
+                echo 'Running Checkstyle for code review...'
                 sh 'mvn checkstyle:check'
             }
         }
 
         stage('Package') {
-            agent {
-                docker { image 'maven:3.8.6-openjdk-11' }
-            }
             steps {
                 echo 'Packaging the application...'
                 sh 'mvn package'
@@ -44,8 +36,11 @@ pipeline {
     }
 
     post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
         failure {
-            echo 'Pipeline failed. Please check the logs.'
+            echo 'Pipeline failed. Check above logs for details.'
         }
     }
 }
