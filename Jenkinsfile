@@ -41,3 +41,11 @@ pipeline {
                 sh 'mvn package'
             }
         }
+    }
+
+    post {
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
+    }
+}
