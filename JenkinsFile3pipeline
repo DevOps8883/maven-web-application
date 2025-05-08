@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('github validation'){
           steps{
-                 git url: 'https://github.com/saidevops8989/addressbook-project.git'
+                 git url: 'https://github.com/DevOps8883/maven-web-application.git'
           }
         }
         stage('compiling the code'){
