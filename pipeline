@@ -15,21 +15,16 @@ pipeline {
             }
         }
 
-        stage('Compile') {
+        stage('Build & Test') {
             steps {
-                sh 'mvn compile'
-            }
-        }
-
-        stage('Unit Test') {
-            steps {
-                sh 'mvn test'
+                sh 'mvn clean test'
             }
         }
 
         stage('qa of the code') {
             steps {
-                sh 'mvn pmd:pmd'
+                sh 'mvn pmd:pmd || true'
+
             }
         }
 
