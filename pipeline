@@ -27,11 +27,9 @@ pipeline {
             }
         }
 
-       stage('Code Quality') {
+        stage('qa of the code') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar'
-                }
+                sh 'mvn pmd:pmd'
             }
         }
 
